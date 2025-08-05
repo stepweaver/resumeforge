@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server';
-import { supabase } from '@/lib/supabase';
+import { supabaseAdmin } from '@/lib/supabase';
 import { v4 as uuid } from 'uuid';
 
 export async function POST(req) {
@@ -12,7 +12,7 @@ export async function POST(req) {
   }
 
   const filename = `${uuid()}.pdf`;
-  const { error } = await supabase.storage
+  const { error } = await supabaseAdmin.storage
     .from('resumes')
     .upload(filename, file, { contentType: 'application/pdf' });
 
