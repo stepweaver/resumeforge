@@ -1,7 +1,7 @@
 'use client';
 
 import { useState, useEffect } from 'react';
-import { supabase } from '@/lib/supabase';
+import { supabase } from '@/lib/supabase-client';
 
 export default function SupabaseTest() {
   const [status, setStatus] = useState('Testing connection...');
@@ -12,7 +12,7 @@ export default function SupabaseTest() {
       try {
         // Test basic connection
         const { data, error } = await supabase.from('profiles').select('*').limit(1);
-        
+
         if (error) {
           setError(`Connection error: ${error.message}`);
           setStatus('❌ Connection failed');
@@ -23,6 +23,7 @@ export default function SupabaseTest() {
       } catch (err) {
         setError(`Unexpected error: ${err.message}`);
         setStatus('❌ Connection failed');
+        console.error('Connection error:', err);
       }
     }
 
